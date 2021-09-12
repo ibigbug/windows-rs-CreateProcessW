@@ -63,19 +63,6 @@ fn main() -> windows::Result<()> {
                 }
             }
         });
-        thread::spawn(move || loop {
-            let mut buffer = [0u8; 1024];
-            match file_out.read(&mut buffer) {
-                Ok(n) if n > 0 => {
-                    io::stdout()
-                        .write_all(&buffer[..n])
-                        .expect("write stdout fail");
-                }
-                _ => {
-                    break;
-                }
-            }
-        });
     }
 
     let mut si: STARTUPINFOEXW = unsafe { std::mem::zeroed() };
